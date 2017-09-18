@@ -7,6 +7,7 @@ endif
 
 BUILD_NUMBER=$(shell git rev-parse --short HEAD)
 BUILD_DATE=$(shelldate +%FT%T%z)
+PWD=$(shell pwd)
 
 build_local_hook:
 	mkdir -p release/hook
@@ -14,6 +15,13 @@ build_local_hook:
 
 start_hook: build_local_hook
 	./release/hook/hookserver
+
+start_registry:
+	docker run -d -p 5000:5000  --name registry -v ${PWD}/conf/docker.config.yml:/etc/docker/registry/config.yml registry:2
+
+clean_registry:
+	docker stop registry
+	docker rm -v registry
 
 clean:
 	rm -fr release

@@ -19,7 +19,7 @@ func Start() {
 	// set routes
 	setRoutes(r)
 	// start
-	startAt(r, "127.0.0.1:8080")
+	startAt(r, "0.0.0.0:8080")
 }
 
 func startAt(r *gin.Engine, addrs ...string) {
