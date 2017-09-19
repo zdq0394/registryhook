@@ -1,9 +1,9 @@
 package hook
 
 import (
-	"fmt"
 	"time"
 
+	"github.com/Sirupsen/logrus"
 	"github.com/gin-gonic/gin"
 )
 
@@ -45,12 +45,11 @@ func latencyMiddlewareHandler(c *gin.Context) {
 	c.Next()
 	end := time.Now().UnixNano() / 1000000
 	latency := end - start
-	fmt.Println(c.Request.URL.Path, ":", latency)
+	logrus.Infoln(c.Request.URL.Path, ":", latency)
 }
 
 func auditMiddlewareHandler(c *gin.Context) {
-	fmt.Println("c.Request.URL.RawPath:", c.Request.URL.RawPath)
+	logrus.Infoln("c.Request.URL.RawPath:", c.Request.URL.RawPath)
 	c.Next()
-	fmt.Println("c.Writer.Status():", c.Writer.Status())
-	fmt.Println("c.Writer.Size():", c.Writer.Size())
+	logrus.Infoln("c.Writer.Status():", c.Writer.Status(), "--c.Writer.Size():", c.Writer.Size())
 }

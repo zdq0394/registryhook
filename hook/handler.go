@@ -37,7 +37,6 @@ func printEvent(event *Event) {
 }
 
 func eventsHandler(c *gin.Context) {
-	fmt.Println("eventsHandler")
 	data, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 		fmt.Println(err)
